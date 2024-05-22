@@ -1,0 +1,50 @@
+
+body {
+    background-color: ivory;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-left: 20px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #000000;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+nav ul li a:hover {
+    color: #007bff;
+}
+
+.carousel-item img {
+    max-width: 100%;
+    height: auto;
+    max-height: 370px;
+}
+
+body {
+    background-color: ivory;
+}
+.carousel-item img {
+    max-width: 100%;
+    height: auto;
+    max-height: 370px;
+}
+
+.carousel-item img {
+    max-width: 100%;
+    height: auto;
+    max-height: 370px;
+}
+.alert-message {
+    color: red;
+}
