@@ -48,3 +48,28 @@ body {
 .alert-message {
     color: red;
 }
+
+#indicadores {
+    margin-top: 12px;
+}
+
+.card {
+    max-width: 300px;
+    margin: 0 auto;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.card-body {
+    text-align: center;
+}
+
+.card-title {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.card-text {
+    font-size: 1rem;
+    margin-bottom: 5px;
+}

@@ -1,5 +1,5 @@
 // Captura el evento de envío del formulario de registro
-$('#registerForm').submit(function(event) {
+$('#registerForm').submit(function (event) {
     event.preventDefault();
 
     // Validación de campos
@@ -35,7 +35,6 @@ $('#registerForm').submit(function(event) {
     alert('¡Registro exitoso!');
     // Aquí puedes agregar código para enviar los datos del formulario a tu servidor
 });
-
 // Función para mostrar una alerta con estilo rojo
 function showAlert(message) {
     $('#messageContainer').text(message).addClass('alert-message');
