@@ -1,41 +1,64 @@
-// Captura el evento de envío del formulario de registro
-$('#registerForm').submit(function (event) {
-    event.preventDefault();
+$(document).ready(function() {
+    // Método para validar solo letras
+    $.validator.addMethod("lettersOnly", function(value, element) {
+        return this.optional(element) || /^[a-zA-Z\s]+$/.test(value);
+    }, "Por favor ingrese solo letras.");
 
-    // Validación de campos
-    var firstName = $('#firstName').val();
-    var lastName = $('#lastName').val();
-    var phoneNumber = $('#phoneNumber').val();
-    var email = $('#email').val();
-    var age = $('#age').val();
-    var rut = $('#rut').val();
+    // Método para validar el formato del número de teléfono
+    $.validator.addMethod("phoneNumber", function(value, element) {
+        return this.optional(element) || /^[0-9]+$/.test(value);
+    }, "Por favor ingrese solo números.");
 
-    if (firstName === '') {
-        showAlert('Por favor, ingrese su nombre.');
-        return;
-    }
-    if (lastName === '') {
-        showAlert('Por favor, ingrese su apellido.');
-        return;
-    }
-    if (phoneNumber === '') {
-        showAlert('Por favor, ingrese su número de teléfono.');
-        return;
-    }
-    if (email === '') {
-        showAlert('Por favor, ingrese su correo electrónico.');
-        return;
-    }
-    if (age === '') {
-        showAlert('Por favor, ingrese su edad.');
-        return;
-    }
-
-    // Envía el formulario si todos los campos están completos
-    alert('¡Registro exitoso!');
-    // Aquí puedes agregar código para enviar los datos del formulario a tu servidor
+    // Validación del formulario
+    $("#registerForm").validate({
+        rules: {
+            firstName: {
+                required: true,
+                lettersOnly: true
+            },
+            lastName: {
+                required: true,
+                lettersOnly: true
+            },
+            phoneNumber: {
+                required: true,
+                phoneNumber: true
+            },
+            email: {
+                required: true,
+                email: true
+            },
+            age: {
+                required: true,
+                number: true,
+                min: 18
+            }
+        },
+        messages: {
+            firstName: {
+                required: "Por favor ingrese su nombre",
+                lettersOnly: "El nombre debe contener solo letras"
+            },
+            lastName: {
+                required: "Por favor ingrese su apellido",
+                lettersOnly: "El apellido debe contener solo letras"
+            },
+            phoneNumber: {
+                required: "Por favor ingrese su número de teléfono",
+                phoneNumber: "El número de teléfono debe contener solo números"
+            },
+            email: {
+                required: "Por favor ingrese su correo electrónico",
+                email: "Por favor ingrese un correo electrónico válido"
+            },
+            age: {
+                required: "Por favor ingrese su edad",
+                number: "Por favor ingrese un número válido",
+                min: "Debe tener al menos 18 años"
+            }
+        },
+        submitHandler: function(form) {
+            form.submit();
+        }
+    });
 });
-// Función para mostrar una alerta con estilo rojo
-function showAlert(message) {
-    $('#messageContainer').text(message).addClass('alert-message');
-}

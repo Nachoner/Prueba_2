@@ -1,4 +1,3 @@
-
 body {
     background-color: ivory;
 }
@@ -25,26 +24,7 @@ nav ul li a:hover {
     color: #007bff;
 }
 
-.carousel-item img {
-    max-width: 100%;
-    height: auto;
-    max-height: 370px;
-}
 
-body {
-    background-color: ivory;
-}
-.carousel-item img {
-    max-width: 100%;
-    height: auto;
-    max-height: 370px;
-}
-
-.carousel-item img {
-    max-width: 100%;
-    height: auto;
-    max-height: 370px;
-}
 .alert-message {
     color: red;
 }
@@ -65,11 +45,16 @@ body {
 }
 
 .card-title {
-    font-size: 1.2rem;
+    font-size: 1rem;
     margin-bottom: 10px;
 }
 
 .card-text {
-    font-size: 1rem;
-    margin-bottom: 5px;
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+   
+.carousel-item img {
+    width: 1px;
+    max-height: 555px;
 }

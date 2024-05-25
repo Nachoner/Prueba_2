@@ -3,42 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tienda de Alimentos - Carrito</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="styles.css">
+    <title>Carrito de Compras</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container {
+            margin-top: 50px;
+        }
+    </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-            <a class="navbar-brand" href="index.html">Tienda de Alimentos</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html">Inicio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="nosotros.html">Nosotros</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="productos.html">Productos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="contacto.html">Contacto</a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="carrito.html">Carrito</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#" data-toggle="modal" data-target="#loginModal">Iniciar sesión</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
     <div class="container mt-4">
         <h2>Carrito de Compras</h2>
         <table class="table table-striped">
@@ -51,69 +24,99 @@
                     <th>Acción</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td>Vegetales</td>
-                    <td>2</td>
-                    <td>$5</td>
-                    <td>$10</td>
-                    <td><button class="btn btn-danger btn-sm">Eliminar</button></td>
-                </tr>
-                <tr>
-                    <td>Carne</td>
-                    <td>1</td>
-                    <td>$15</td>
-                    <td>$15</td>
-                    <td><button class="btn btn-danger btn-sm">Eliminar</button></td>
-                </tr>
-                <tr>
-                    <td>Frutos Secos</td>
-                    <td>3</td>
-                    <td>$7</td>
-                    <td>$21</td>
-                    <td><button class="btn btn-danger btn-sm">Eliminar</button></td>
-                </tr>
+            <tbody id="cart-items">
+                <!-- Los productos se agregarán dinámicamente aquí -->
             </tbody>
             <tfoot>
                 <tr>
                     <th colspan="3">Total</th>
-                    <th>$46</th>
+                    <th id="total-price">$0</th>
                     <th></th>
                 </tr>
             </tfoot>
         </table>
-        <button class="btn btn-primary">Proceder al Pago</button>
-    </div>
-
-    <!-- Modal de inicio de sesión -->
-    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="loginModalLabel">Iniciar sesión</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+        <div class="mb-3">
+            <h4>Agregar Producto</h4>
+            <div class="form-row">
+                <div class="col">
+                    <input type="text" id="product-name" class="form-control" placeholder="Producto">
                 </div>
-                <div class="modal-body">
-                    <form id="loginForm">
-                        <div class="form-group">
-                            <label for="email">Correo electrónico</label>
-                            <input type="email" class="form-control" id="email" placeholder="Ingrese su correo electrónico" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="password">Contraseña</label>
-                            <input type="password" class="form-control" id="password" placeholder="Ingrese su contraseña" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Iniciar sesión</button>
-                    </form>
+                <div class="col">
+                    <input type="number" id="product-quantity" class="form-control" placeholder="Cantidad">
+                </div>
+                <div class="col">
+                    <input type="number" id="product-price" class="form-control" placeholder="Precio">
+                </div>
+                <div class="col">
+                    <button class="btn btn-success" onclick="addItem()">Agregar</button>
                 </div>
             </div>
         </div>
+        <div class="d-flex justify-content-between">
+            <button class="btn btn-secondary" onclick="goBack()">Retroceder</button>
+            <button class="btn btn-primary" onclick="proceedToCheckout()">Proceder al Pago</button>
+        </div>
     </div>
 
-    <!-- Scripts de Bootstrap y jQuery -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</
+    <script>
+        function renderCart() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            cartItemsContainer.innerHTML = '';
+            let totalPrice = 0;
+
+            cartItems.forEach((item, index) => {
+                const itemTotal = item.quantity * item.price;
+                totalPrice += itemTotal;
+
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${item.product}</td>
+                    <td>${item.quantity}</td>
+                    <td>$${item.price}</td>
+                    <td>$${itemTotal}</td>
+                    <td><button class="btn btn-danger btn-sm" onclick="removeItem(${index})">Eliminar</button></td>
+                `;
+                cartItemsContainer.appendChild(row);
+            });
+
+            document.getElementById('total-price').innerText = `$${totalPrice}`;
+        }
+
+        function addItem() {
+            const productName = document.getElementById('product-name').value;
+            const productQuantity = parseInt(document.getElementById('product-quantity').value);
+            const productPrice = parseFloat(document.getElementById('product-price').value);
+
+            if (productName && productQuantity > 0 && productPrice > 0) {
+                cartItems.push({ product: productName, quantity: productQuantity, price: productPrice });
+                renderCart();
+                clearForm();
+            } else {
+                alert('Por favor, complete todos los campos con valores válidos.');
+            }
+        }
+
+        function clearForm() {
+            document.getElementById('product-name').value = '';
+            document.getElementById('product-quantity').value = '';
+            document.getElementById('product-price').value = '';
+        }
+
+        function removeItem(index) {
+            cartItems.splice(index, 1);
+            renderCart();
+        }
+
+        function proceedToCheckout() {
+            alert('Procediendo al pago');
+        }
+
+        function goBack() {
+            history.back();
+        }
+
+        // Inicializar el carrito
+        renderCart();
+    </script>
+</body>
+</html>
